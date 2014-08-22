@@ -1,2 +1,5 @@
 app-ssl.js
 app.js
+node_modules
+myLogFile.log
+config.js

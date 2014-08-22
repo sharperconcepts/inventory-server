@@ -1,0 +1,21 @@
+doctype html
+html
+	head
+		title Jade Test
+		include mixin/header
+	body
+		h1 Hello World 2
+		
+		form(action='/login', method='post')
+			label Username:
+			input(type='text', name='username')
+			label Password:
+			input(type='password', name='password') 
+			input(type='submit', value='Log In')
+
+		p.
+			This is text. This is text. This is text. This is text. 
+			This is text. This is text. This is text. 
+		p= var1
+		p= var2
+		include mixin/footer

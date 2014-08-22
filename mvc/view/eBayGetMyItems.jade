@@ -1,0 +1,17 @@
+doctype xml
+GetMyeBaySellingRequest(xmlns="urn:ebay:apis:eBLBaseComponents")
+	RequesterCredentials
+		eBayAuthToken=$accountToken
+	ActiveList
+		Sort="TimeLeft"
+		Pagination
+			EntriesPerPage=$entriesPerPage
+			PageNumber=$pageNumber
+	OutputSelector="ItemID"
+	OutputSelector="Quantity"
+	OutputSelector="Title"
+	OutputSelector="ListingDetails"
+	OutputSelector="PictureDetails"
+	OutputSelector="TimeLeft"
+	OutputSelector="PaginationResult"
+	DetailLevel="ReturnSummary"
