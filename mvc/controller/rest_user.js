@@ -14,7 +14,7 @@ module.exports.controller = function(app) {
 		if (req.isAuthenticated()) { 
 			return next(); 
 		}
-		return res.send(401);
+		return res.status(401).send('Not Authenticated');
 	}
 
 

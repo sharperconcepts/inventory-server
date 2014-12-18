@@ -106,7 +106,7 @@ ebay.DownloadSingleItem = function(accountToken, itemID, app, returnClient) {
 			channel: [{
 				ChannelType: "ebay",
 				ChannelId: "",
-				ChannelData: resObj.GetItemResponse.Item
+				ChannelData: JSON.stringify(resObj.GetItemResponse.Item)
 			}],
 			
 			salePrice: Number(resObj.GetItemResponse.Item.BuyItNowPrice._),
@@ -132,7 +132,7 @@ ebay.CallApi = function(renTemplate, renData, callBack, app) {
 
  	app.render(renTemplate, renData, function(err, xml){
 
- 		//console.log(xml);
+ 		console.log(xml);
 
  		var options = {
 			hostname: 'api.ebay.com',

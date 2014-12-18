@@ -11,6 +11,7 @@ module.exports.controller = function(app) {
 	app.post('/api/login', 
 		security.passport.authenticate('local'), 
 		function(req, res){
+			console.log("meouwww");
  			return res.send(req.user);
 		}
 	);

@@ -20,7 +20,7 @@ module.exports.Schema = function (mongoose){
 		channel: [{
 			ChannelType: String,
 			ChannelId: String,
-			ChannelData: mongoose.Schema.Types.Mixed
+			ChannelData: String
 		}],
 
 		productDetails: [{
@@ -48,8 +48,19 @@ module.exports.Schema = function (mongoose){
 		if (dirtyData.title)
 			this.title = dirtyData.title;
 
+		if (dirtyData.quantity)
+			this.quantity = dirtyData.quantity;
+
 		if (dirtyData.status)
 			this.status = dirtyData.status;
+
+		if (dirtyData.shortDescription)
+			this.shortDescription = dirtyData.shortDescription;
+
+		if (dirtyData.longDescription)
+			this.longDescription = dirtyData.longDescription;
+
+		this.lastUpdate = Date.now();
 
 	}
 

@@ -4,13 +4,20 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "3.x",
+    "express": "4.x",
+    "express-session": "*",
+    "morgan": "*",
+    "compression": "*",
+    "body-parser": "*",
+    "multer": "*",
+    "cookie-parser": "*",
     "jade": "*",
-    "mongoose": "*",
+    "mongoose": "3.8.x",
     "passport": "*",
     "passport-local": "*",
     "connect-flash": "*",
     "xml2js": "*",
-    "async": "*"
+    "async": "*",
+    "fs-extra": "*"
   }
 }

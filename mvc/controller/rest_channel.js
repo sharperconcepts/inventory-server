@@ -1,5 +1,5 @@
  /*******************
- REST PRODUCT API
+ REST CHANNEL API
  *******************/
 
 module.exports.controller = function(app) {
@@ -17,7 +17,7 @@ module.exports.controller = function(app) {
 		if (req.isAuthenticated()) { 
 			return next(); 
 		}
-		return res.send(401);
+		return res.status(401).end();
 	}
 
 
@@ -135,7 +135,7 @@ module.exports.controller = function(app) {
  			//download channel
  			function(callback) {
  				data.obj.Channel.findById(req.params.id, function(err,channel){
- 					if (channel == null) return res.send(404);
+ 					if (channel == null) return res.status(404).end();
  					else callback(err,channel);
  				});
  			},
@@ -148,7 +148,7 @@ module.exports.controller = function(app) {
 					});
 				} 
 				else {
-					return res.send(501);
+					return res.status(501).end();
 				}
  			}
 
@@ -165,7 +165,7 @@ module.exports.controller = function(app) {
  			//download channel
  			function(callback) {
  				data.obj.Channel.findById(req.params.id, function(err,channel){
- 					if (channel == null) return res.send(404);
+ 					if (channel == null) return res.status(404).end();
  					else callback(err,channel);
  				});
  			},
@@ -178,7 +178,7 @@ module.exports.controller = function(app) {
 					});
 				} 
 				else {
-					return res.send(501);
+					return res.status(501).end();
 				}
  			}
 
@@ -195,7 +195,7 @@ module.exports.controller = function(app) {
  			//download channel
  			function(callback) {
  				data.obj.Channel.findById(req.params.id, function(err,channel){
- 					if (channel == null) return res.send(404);
+ 					if (channel == null) return res.status(404).end();
  					else callback(err,channel);
  				});
  			},
@@ -204,22 +204,22 @@ module.exports.controller = function(app) {
  			function(channel, callback) {
 				if(channel.channelType == "ebay") {
 					ebay.DownloadSingleItem(channel.channelKey, req.params.pid, app, function(err,productRawData){
-						if (productRawData == null) return res.send(501);
+						if (productRawData == null) return res.status(501).end();
  						else callback(err,productRawData);
 					});
 				} 
 				else {
-					return res.send(501);
+					return res.status(501).end();
 				}
  			},
 
  			function(productRawData, callback) {
- 				var NewProduct = new data.obj.Product();
-				NewProduct.Populate(productRawData);
+ 				var NewProduct = new data.obj.Product(productRawData);
+				//NewProduct.Populate(productRawData);
 
 				NewProduct.save(function (err){
 					if (!err) {
-						return res.send(NewProduct);
+						return res.status(NewProduct).end();
 					} else {
 						return console.log(err);
 					}

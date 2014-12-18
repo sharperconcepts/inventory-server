@@ -22,7 +22,9 @@ model.start = function(app) {
 	//*******************
 
 	var mongoose = require('mongoose');
-	mongoose.connect('mongodb://localhost/express-test');
+	var config = require('../../config');
+
+	mongoose.connect(config.mongodb.conection);
 
 	this.obj.db = mongoose.connection;
 	this.obj.db.on('error', console.error.bind(console, 'connection error:'));

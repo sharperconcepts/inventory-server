@@ -6,6 +6,8 @@ module.exports.controller = function(app) {
 
 	var security = require('../model/security');
 	var data = require('../model/data');
+	var multer  = require('multer');
+	var fs = require('fs-extra');
 
 	/****** security method for this api ******/
 	// can be customized for specific security requirements
@@ -14,7 +16,7 @@ module.exports.controller = function(app) {
 		if (req.isAuthenticated()) { 
 			return next(); 
 		}
-		return res.send(401);
+		return res.status(401).end();
 	}
 
 
@@ -26,7 +28,7 @@ module.exports.controller = function(app) {
  	
 	app.get('/api/products', isAuthenticated, function(req, res) {
 
-		data.obj.Product.find({}, 'itemId title status', function(err,productList){
+		data.obj.Product.find({}, 'itemId title quantity status shortDescription entryDate lastUpdate', function(err,productList){
 			if(!err){
 				return res.send(productList);
 			} else {
@@ -87,6 +89,41 @@ module.exports.controller = function(app) {
 
 	});
 
+	/****** upload image to product ******/
+	
+	app.post('/api/products/photo', isAuthenticated, 
+		
+	multer({ 
+		dest: './resources/products',
+		limits: {
+			fileSize: '2000',
+		},
+		rename: function(fieldname, filename) {
+			return fieldname + filename + Date.now();
+		},
+		onFileUploadStart: function(file) {
+			var exts = ['png','jpg','jpeg'];
+			
+		}
+	}),
+	
+	function (req, res){
+		if (req.files) { 
+			console.log(req.files);
+			if (req.files.Test.size === 0) {
+			    return res.status(500).end();
+			}
+			fs.exists(req.files.Test.path, function(exists) { 
+				if(exists) { 
+					return res.end('');
+				} else { 
+					return res.status(500).end();
+				} 
+			}); 
+		} 
+
+	});
+
 	/****** update product ******/
 
 	app.post('/api/products/:id', isAuthenticated, function (req, res){
@@ -112,6 +149,8 @@ module.exports.controller = function(app) {
 
 		});
 
-	});	
+	});
+
+	
 
 }
